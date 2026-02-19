@@ -17,15 +17,18 @@ $routes = [
     ['GET', '/acceuil', [Mini\Controllers\HomeController::class, 'acceuil']],
     ['GET', '/produit', [Mini\Controllers\HomeController::class, 'FicheProduit']],
     ['GET', '/nosproduits', [Mini\Controllers\HomeController::class, 'nosproduits']],
+    ['GET', '/notre-histoire', [Mini\Controllers\HomeController::class, 'histoire']],
+    ['GET', '/ingredients', [Mini\Controllers\HomeController::class, 'ingredients']],
     ['GET', '/contact', [Mini\Controllers\HomeController::class, 'contact']],
     ['GET', '/identification', [Mini\Controllers\HomeController::class, 'identification']],
-    ['GET', '/cart', [Mini\Controllers\CartController::class, 'index']],
+    ['GET', '/inscription', [Mini\Controllers\HomeController::class, 'inscription']],
+    ['GET', '/cart', [Mini\Controllers\CartController::class, 'show']],
     // Panier
 
     // Authentification
     ['POST', '/auth/register', [Mini\Controllers\RegisterController::class, 'register']],
+    ['POST', '/auth/login', [Mini\Controllers\RegisterController::class, 'login']],
     ['GET', '/auth/deconnexion', [Mini\Controllers\RegisterController::class, 'deconnexion']],
-    ['POST', '/auth/cart', [Mini\Controllers\RegisterController::class, 'show']],
     ['POST', '/cart/add-from-form', [Mini\Controllers\CartController::class, 'addFromForm']],
     ['POST', '/cart/update', [Mini\Controllers\CartController::class, 'update']],
     ['POST', '/cart/remove', [Mini\Controllers\CartController::class, 'remove']],

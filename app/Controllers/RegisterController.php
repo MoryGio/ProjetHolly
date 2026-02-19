@@ -6,37 +6,85 @@ use Mini\Models\User;
 
 final class RegisterController extends Controller
 {
+    /**
+     * Gère l'inscription
+     */
     public function register(): void
     {
-        // Ici on vérifie que la méthode HTTP est bien POST
+        // Redirection si déjà connecté
+        if (isset($_SESSION['user_id'])) {
+            header('Location: /acceuil');
+            exit();
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-           // print_r($_POST); // Pour le debug, affiche les données reçues
-            // Ici on créer une variable $email ou on stock la valeur de l'email
-            $prenom = $_POST['prenom'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            // Ici on pourrait ajouter la logique pour enregistrer l'utilisateur
-            
+            $prenom = trim($_POST['prenom'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $password = $_POST['password'] ?? '';
+
+            if (empty($prenom)) {
+                header('Location: /inscription?error=prenom_requis');
+                exit();
+            }
+
+            // Vérification email existant
+            $existingUser = User::findByEmail($email);
+            if ($existingUser) {
+                header('Location: /inscription?error=email_deja_pris');
+                exit();
+            }
+
             User::register($prenom, $email, $password);
 
-            // Ici on démarre une session utilisateur avec les données de l'utilisateur
-            $_SESSION['user'] = [
-                'prenom' => $prenom,
-                'email' => $email,
-            ];
-            //print_r($_SESSION); // Pour le debug, affiche la session utilisateur
-            //print_r($_SESSION['user']); // Pour le debug, affiche la session utilisateur
+            $user = User::findByEmail($email);
+            $_SESSION['user'] = $user;
+            $_SESSION['user_id'] = $user['id'];
 
-
+            header('Location: /acceuil?success=bienvenue');
+            exit();
         }
-        $this->render('home/acceuil');
+        
+        $this->render('home/inscription');
     }
 
+    /**
+     * Gère la connexion
+     */
+    public function login(): void
+    {
+        if (isset($_SESSION['user_id'])) {
+            header('Location: /acceuil');
+            exit();
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = trim($_POST['email'] ?? '');
+            $password = $_POST['password'] ?? '';
+
+            $user = User::findByEmail($email);
+
+            if ($user && password_verify($password, $user['password'])) {
+                $_SESSION['user'] = $user;
+                $_SESSION['user_id'] = $user['id'];
+                
+                header('Location: /acceuil');
+                exit();
+            } else {
+                header('Location: /identification?login_error=1');
+                exit();
+            }
+        }
+        
+        header('Location: /identification');
+        exit();
+    }
+
+    /**
+     * Gère la déconnexion
+     */
     public function deconnexion(): void
     {
-        // Détruit la session utilisateur : ca supprime le contenu de $_SESSION
         session_destroy();
-        // Redirige vers la page d'accueil ou de connexion
         header('Location: /acceuil');
         exit();
     }

@@ -9,9 +9,6 @@ use Mini\Core\Controller;
 use Mini\Models\User;
 use Mini\Models\Product;
 
-
-
-
 // Déclare la classe finale HomeController qui hérite de Controller
 final class HomeController extends Controller
 {
@@ -36,14 +33,14 @@ final class HomeController extends Controller
         ]);
     }
 
-    public function Acceuil(): void
-    {
-        // Appelle le moteur de rendu avec la vue et ses paramètres
-        $this->render('home/acceuil', params: [
-            // Définit le titre transmis à la vue
-            'products' => $products = Product::getAll(),
-        ]);
-    }
+ public function acceuil(): void
+{
+    $products = Product::getAll();
+
+    $this->render('home/acceuil', [
+        'products' => $products,
+    ]);
+}
 
           public function FicheProduit()
 {
@@ -64,11 +61,23 @@ final class HomeController extends Controller
     ]);
 }
 
-function nosproduits(): void
+public function nosproduits(): void
     {
         $this->render('home/nosproduits', params: [
             'products' => $products = Product::getAll(),
          
+        ]);
+    }
+
+public function histoire(): void
+    {
+        $this->render('home/histoire', params: [
+        ]);
+    }
+
+public function ingredients(): void
+    {
+        $this->render('home/ingredients', params: [
         ]);
     }
 
@@ -83,6 +92,12 @@ public function identification(): void
         $this->render('home/identification', params: [
         ]);
     }
+
+public function inscription(): void
+    {
+        $this->render('home/inscription', params: [
+        ]);
+    }
     
 
 public function panier(): void
@@ -92,4 +107,3 @@ public function panier(): void
     }
 
 }
-
