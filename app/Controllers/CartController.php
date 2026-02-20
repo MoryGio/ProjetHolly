@@ -10,9 +10,6 @@ use Mini\Models\Product;
 
 final class CartController extends Controller
 {
-    /**
-     * Récupère l'ID utilisateur depuis la session
-     */
     private function getUserIdFromSession(): ?int
     {
         $id = $_SESSION['user_id'] ?? ($_SESSION['user']['id'] ?? null);
@@ -36,9 +33,6 @@ final class CartController extends Controller
     }
 
 
-    /**
-     * Affiche le panier lié à la session utilisateur
-     */
     public function show(): void
     {
         $user_id = $this->getUserIdFromSession();
@@ -64,9 +58,6 @@ final class CartController extends Controller
         ]);
     }
 
-    /**
-     * Ajoute un produit au panier via la session
-     */
     public function addFromForm(): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -103,9 +94,6 @@ final class CartController extends Controller
         }
     }
 
-    /**
-     * Met à jour la quantité
-     */
     public function update(): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -143,9 +131,6 @@ final class CartController extends Controller
         }
     }
 
-    /**
-     * Supprime un article
-     */
     public function remove(): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -173,9 +158,6 @@ final class CartController extends Controller
         }
     }
 
-    /**
-     * Vide le panier
-     */
     public function clear(): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

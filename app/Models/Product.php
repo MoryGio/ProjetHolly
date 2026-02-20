@@ -1,6 +1,5 @@
 <?php
 
-// Ici je définit le namespace ou il y aura ma class
 namespace Mini\Models;
 
 use Mini\Core\Database;
@@ -13,9 +12,6 @@ class Product
     private $image;
     private $description;
 
-    // =====================
-    // Getters / Setters
-    // =====================
 
     public function getId()
     {
@@ -56,14 +52,7 @@ class Product
     {
         $this->image = $image;
     }
-    // =====================
-    // Méthodes CRUD
-    // =====================
-
-    /**
-     * Récupère tous les utilisateurs
-     * @return array
-     */
+  
     public static function getAll()
     {
         $pdo = Database::getPDO();
@@ -71,11 +60,7 @@ class Product
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Récupère un utilisateur par son ID
-     * @param int $id
-     * @return array|null
-     */
+   
     
     public static function findById($id)
     {

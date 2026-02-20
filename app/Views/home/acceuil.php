@@ -7,7 +7,6 @@
         <p style="font-size: 1.5rem; margin: 30px 0; max-width: 500px;">Ton futur désaltérant préféré : HOLY Softdrinks. Zéro sucre, 100% goût.</p>
         <a href="/nosproduits" class="btn">DÉCOUVRIR LA RÉVOLUTION</a>
     </div>
-
     <!-- Image flottante -->
     <img src="/Image/image_produits/HOLY_Energy.webp" class="floating-product" alt="HOLY Energy Box">
 </section>

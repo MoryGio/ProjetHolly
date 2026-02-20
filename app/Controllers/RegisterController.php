@@ -6,12 +6,8 @@ use Mini\Models\User;
 
 final class RegisterController extends Controller
 {
-    /**
-     * Gère l'inscription
-     */
     public function register(): void
     {
-        // Redirection si déjà connecté
         if (isset($_SESSION['user_id'])) {
             header('Location: /acceuil');
             exit();
@@ -27,7 +23,6 @@ final class RegisterController extends Controller
                 exit();
             }
 
-            // Vérification email existant
             $existingUser = User::findByEmail($email);
             if ($existingUser) {
                 header('Location: /inscription?error=email_deja_pris');
@@ -47,9 +42,6 @@ final class RegisterController extends Controller
         $this->render('home/inscription');
     }
 
-    /**
-     * Gère la connexion
-     */
     public function login(): void
     {
         if (isset($_SESSION['user_id'])) {
@@ -79,9 +71,6 @@ final class RegisterController extends Controller
         exit();
     }
 
-    /**
-     * Gère la déconnexion
-     */
     public function deconnexion(): void
     {
         session_destroy();

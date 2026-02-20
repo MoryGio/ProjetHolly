@@ -14,7 +14,6 @@ class Cart
     private $created_at;
     private $updated_at;
 
-    // Getters / Setters
 
     public function getId()
     {
@@ -49,11 +48,7 @@ class Cart
         $this->quantite = $quantite;
     }
 
-    // Méthodes principales
 
-     /**
-     * Récupère tous les articles du panier d'un utilisateur
-     */
 
     public static function getCartByUserId($user_id)
     {
@@ -72,9 +67,6 @@ class Cart
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
         
-    /**
-     * Calcule le total du panier
-     */
 
     public static function calculateTotal($user_id)
     {
@@ -91,9 +83,6 @@ class Cart
     }
 
 
-    /**
-     * Ajoute ou met à jour un produit dans le panier
-     */
 
    public function save()
 {
@@ -106,11 +95,9 @@ class Cart
         return false;
     }
 
-    // sécurité: si quantite vide -> 1
     $this->quantite = (int)($this->quantite ?? 1);
     if ($this->quantite <= 0) $this->quantite = 1;
 
-    // Vérifie si l'article existe déjà dans le panier pour cet utilisateur
     $sql = "SELECT id, quantite FROM panier WHERE user_id = ? AND id_produit = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$this->user_id, $this->product_id]);
@@ -125,7 +112,6 @@ class Cart
         return $ok;
     }
 
-    // Ajoute un nouvel article
     $sql = "INSERT INTO panier (user_id, id_produit, quantite) VALUES (?, ?, ?)";
     $stmt = $pdo->prepare($sql);
     $ok = $stmt->execute([$this->user_id, $this->product_id, $this->quantite]);
@@ -134,9 +120,6 @@ class Cart
     return $ok;
 }
 
-     /**
-     * Supprime un article du panier
-     */
     public function delete()
     {
         $pdo = Database::getPDO();
@@ -144,9 +127,6 @@ class Cart
         return $stmt->execute([$this->id]);
     }
 
-    /**
-     * Vide le panier d'un utilisateur
-     */
     public static function clearByUserId($user_id)
     {
         $pdo = Database::getPDO();

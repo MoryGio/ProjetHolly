@@ -17,7 +17,6 @@
             </div>
         </div>
     </div>
-
     <!-- Colonne Texte -->
     <div class="produittexte" style="padding: 6vw; display: flex; flex-direction: column; justify-content: center; background: var(--holy-off-white);">
         <nav style="margin-bottom: 30px; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">
@@ -34,7 +33,6 @@
         <p style="font-size: 1.3rem; font-weight: 500; margin-bottom: 40px; line-height: 1.6; max-width: 600px; color: #444;">
             <?= htmlspecialchars($product['Description'] ?? "L'alternative ultime aux soft drinks classiques. Zéro sucre, vitamines essentielles, et une explosion de saveurs naturelles.") ?>
         </p>
-
         <!-- Sélecteur de Taille / Format (Look HOLY) -->
         <div style="margin-bottom: 40px;">
             <p style="font-weight: 800; text-transform: uppercase; margin-bottom: 15px; font-size: 0.9rem;">Choisir le format :</p>
